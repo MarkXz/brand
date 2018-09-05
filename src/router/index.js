@@ -4,7 +4,7 @@ import Login from '@/components/Login'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -13,3 +13,12 @@ export default new Router({
     { path: '/login', component: Login }
   ]
 })
+
+router.beforeEach((to, form, next) => {
+  if (to.path === '/login') next()
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (!tokenStr) return next('/login')
+  next()
+})
+
+export default router
