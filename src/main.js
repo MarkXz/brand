@@ -10,6 +10,11 @@ import '@/assets/fonts/iconfont.css'
 import '@/assets/css/global.css'
 axios.defaults.baseURL = 'https://www.liulongbin.top:8888/api/private/v1/'
 Vue.prototype.$http = axios
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  // console.log(config)
+  return config
+})
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
