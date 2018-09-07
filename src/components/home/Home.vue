@@ -11,13 +11,13 @@
             <el-aside :width="collapse?'65px':'200px'">
                 <div class="toggleBar" @click="collapse=!collapse">|||</div>
                 <!-- Start 菜单 -->
-                <el-menu default-active="2" background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="collapse" :collapse-transition="false" router>
+                <el-menu :default-active="'/'+ActivePath" background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse="collapse" :collapse-transition="false" router>
                     <el-submenu :index="item.id +''" v-for="(item,i) in list" :key="item.id" :style="collapse?'width:65px;':'width:200px;'">
                         <template slot="title">
                             <i :class="['iconfont',iconlist[i]]"></i>
                             <span>{{ item.authName }}</span>
                         </template>
-                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id">
+                        <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveAcitvePath(subItem.path)">
                             <i class="el-icon-menu"></i>
                             <span slot="title">{{ subItem.authName }}</span>
                         </el-menu-item>

@@ -2,7 +2,20 @@ html,
 body,
 #app {
   height: 100%;
-  background: #2B4B6B;
+  background: #2b4b6b;
   margin: 0;
   padding: 0;
+}
+.el-breadcrumb {
+  margin-bottom: 15px;
+}
+.el-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+.el-table {
+  font-size: 12px;
+  margin-top: 15px;
+}
+.el-pagination{
+  margin-top: 15px;
 }
