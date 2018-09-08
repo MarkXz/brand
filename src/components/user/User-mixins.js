@@ -28,6 +28,7 @@ export default {
       total: 0, // 控制总页数
       addDialogVisible: false, // 控制添加用户对话框的显示和隐藏
       editDialogVisible: false, // 控制编辑对话框的显示和隐藏
+      allotDialogVisible: false, // 控制分配用户的对话框显示和隐藏
       // 添加用户中表单的数据
       addForm: {
         username: '',
@@ -60,7 +61,13 @@ export default {
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
-      }
+      },
+      // 分配角色对话框中数据的默认值
+      userinfo: {},
+      // 角色的所有数据
+      allRole_name: [],
+      // 用户选择的角色
+      selectValue: null
     }
   },
   created() {
@@ -147,6 +154,32 @@ export default {
       const { data: res } = await this.$http.delete('users/' + id)
       if (res.meta.status !== 200) return this.$message.error('删除失败')
       this.$message.success('删除成功')
+      this.getUserList()
+    },
+    // 点击分配按钮显示对话框的功能
+    async showAllotDislog(userinfo) {
+      console.log(userinfo)
+      this.userinfo = userinfo
+      const { data: res } = await this.$http.get('roles')
+      console.log(res)
+      if (res.meta.status !== 200) return this.$message.error('获取角色信息失败')
+      this.allRole_name = res.data
+      this.allotDialogVisible = true
+    },
+    // 关闭分配角色的对话框
+    resetAllot() {
+      this.selectValue = ''
+      this.allRole_name = []
+    },
+    // 保存新角色
+    async saveNewRole() {
+      if (this.selectValue === '') return this.$message.error('请选择新角色后再保存')
+      const { data: res } = await this.$http.put(`users/${this.userinfo.id}/role`, {
+        rid: this.selectValue
+      })
+      if (res.meta.status !== 200) return this.$message.error('保存失败')
+      this.$message.success('保存成功')
+      this.allotDialogVisible = false
       this.getUserList()
     }
   }

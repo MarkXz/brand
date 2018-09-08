@@ -42,7 +42,7 @@
                         <el-button size="mini" type="primary" icon="el-icon-edit" @click="showEditDislog(scope.row.id)"></el-button>
                         <el-button size="mini" type="danger" icon="el-icon-delete" @click="remove(scope.row.id)"></el-button>
                         <el-tooltip :enterable="false" effect="dark" content="分配角色" placement="top">
-                            <el-button size="mini" type="warning" icon="el-icon-setting"></el-button>
+                            <el-button size="mini" type="warning" icon="el-icon-setting" @click="showAllotDislog(scope.row)"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -92,6 +92,23 @@
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editDialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="saveEdit">确 定</el-button>
+            </span>
+        </el-dialog>
+        <!-- 分配用户的对话框 -->
+        <el-dialog title="分配角色" :visible.sync="allotDialogVisible" width="50%" @close="resetAllot">
+            <div>
+                <p>当前的用户：{{ userinfo.username }}</p>
+                <p>当前的角色：{{ userinfo.role_name }}</p>
+                <p>分配新角色：
+                    <el-select v-model="selectValue" placeholder="请选择角色">
+                        <el-option v-for="item in allRole_name" :key="item.id" :label="item.roleName" :value="item.id">
+                        </el-option>
+                    </el-select>
+                </p>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="allotDialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="saveNewRole">确 定</el-button>
             </span>
         </el-dialog>
     </div>
