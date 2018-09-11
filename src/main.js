@@ -33,6 +33,17 @@ axios.interceptors.response.use(config => {
   return config
 })
 Vue.use(ElementUI)
+// 时间的全局过滤器
+Vue.filter('dataForm', originVal => {
+  const data = new Date(originVal)
+  const y = data.getFullYear()
+  const m = (data.getMonth() + 1 + '').padStart(2, '0')
+  const d = (data.getDate() + '').padStart(2, '0')
+  const hh = (data.getHours() + '').padStart(2, '0')
+  const mm = (data.getMinutes() + '').padStart(2, '0')
+  const ss = (data.getSeconds() + '').padStart(2, '0')
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
 
 Vue.config.productionTip = false
 
