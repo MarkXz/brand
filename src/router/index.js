@@ -9,6 +9,7 @@ import Roles from '@/components/power/Roles'
 import Cate from '@/components/goods/Cate'
 import Params from '@/components/goods/Params'
 import Order from '@/components/order/Order'
+import Reports from '@/components/reports/Reports'
 Vue.use(Router)
 
 const router = new Router({
@@ -29,7 +30,8 @@ const router = new Router({
         { path: '/roles', component: Roles },
         { path: '/categories', component: Cate },
         { path: '/params', component: Params },
-        { path: '/orders', component: Order }
+        { path: '/orders', component: Order },
+        { path: '/reports', component: Reports }
       ]
     }
   ]
